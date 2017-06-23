@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<h1>Books</h1>
+
+<p style="text-align: left">
+    <a href="@Url.Action("Create")" class="btn btn-primary">New Book</a>
+</p>
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Pages</th>
+            <th>Author(s)</th>
+            <th>Published at</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in ViewBag.Books)
+            {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td>@book.Price</td>
+                <td>@book.Pages</td>
+                <td>@book.Authors</td>
+                <td>@Html.FormatValue(book.PublishedAt, "{0:dd/MM/yyyy}")</td>
+                <td>                    
+                    <a href="@Url.Action("Edit", "Book", new { Id=@book.Id})" class="btn btn-success">Edit</a>
+                    <a href="@Url.Action("Delete", "Book", new { Id=@book.Id})" class="btn btn-danger">Delete</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
