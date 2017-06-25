@@ -16,11 +16,19 @@ namespace BookWeb.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Book = new Book();
             return View();
         }
 
+        [HttpPost]
         public ActionResult Store(Book book)
         {
+            if(!ModelState.IsValid)
+            {
+                ViewBag.Book = book;
+                return View("Create");
+            }
+
             var dao = new BookDAO();
             dao.Create(book);
             return RedirectToAction("Index");
@@ -34,6 +42,7 @@ namespace BookWeb.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Update(Book book)
         {
             var dao = new BookDAO();
